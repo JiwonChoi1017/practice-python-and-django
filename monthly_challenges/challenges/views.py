@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 monthly_challenges = {
     "january": "Eat no meat for the entire month!",
@@ -48,4 +49,5 @@ def monthly_challenge(request, month):
         )
     # 明確な例外要因を記述することで、「do not use bare ‘except’」エラーを回避できる
     except Exception:
-        return HttpResponseNotFound("<h1>This month is not supported!</h1>")
+        response_data = render_to_string("404.html")
+        return HttpResponseNotFound(response_data)
